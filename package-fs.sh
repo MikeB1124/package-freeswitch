@@ -73,7 +73,4 @@ chmod -R 755 ${PACKAGE_NAME}/DEBIAN
 #Build the package
 dpkg-deb --build ${PACKAGE_NAME}
 
-# Rename the deb package to the desired name
-mv ${PACKAGE_NAME}.deb $DEB_NAME
-
-echo "Package $DEB_NAME created successfully!
+echo "Package ${PACKAGE_NAME} created successfully!

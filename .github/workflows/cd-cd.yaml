@@ -29,18 +29,22 @@ jobs:
       
       - name: Package FreeSWITCH
         run: |
+          docker exec fs-build-env bash -c "ls /usr/local/bin"
+          docker exec fs-build-env bash -c "ls /var/lib/freeswitch"
+          docker exec fs-build-env bash -c "ls /usr/local/share/freeswitch"
+          docker exec fs-build-env bash -c "ls /etc/freeswitch"
           docker exec fs-build-env bash -c "cd /workspace && chmod +x package-fs.sh && ./package-fs.sh"
       
       - name: Extract the .deb package from Docker
         run: |
-          docker cp fs-build-env:/workspace/freeswitch_1.0.0_amd64.deb ./
+          docker cp fs-build-env:/workspace/freeswitch.deb ./
           docker stop fs-build-env
 
       - name: Upload FreeSWITCH .deb package as artifact
         uses: actions/upload-artifact@v4
         with:
           name: freeswitch-deb-package
-          path: freeswitch_1.0.0_amd64.deb
+          path: freeswitch.deb
 
   upload_to_s3:
     runs-on: ubuntu-latest
@@ -54,4 +58,4 @@ jobs:
 
       - name: Upload .deb package to S3
         run: |
-          aws s3 cp freeswitch_1.0.0_amd64.deb s3://balian-repo-public/freeswitch/freeswitch_1.0.0_amd64.deb
+          aws s3 cp freeswitch.deb s3://balian-repo-public/freeswitch/freeswitch.deb
