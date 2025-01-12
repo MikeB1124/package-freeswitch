@@ -14,37 +14,37 @@ jobs:
   install_and_package:
     runs-on : ubuntu-latest
     steps:
-    # - name: Install FreeSWITCH
-    #   run: |
-    #     ls
-    #     chmod +x install-fs.sh
-    #     sudo ./install-fs.sh
+    - name: Install FreeSWITCH
+      run: |
+        ls
+        chmod +x install-fs.sh
+        sudo ./install-fs.sh
     
-    # - name: Package FreeSWITCH
-    #   run: |
-    #     chmod +x package-fs.sh
-    #     ./package-fs.sh
+    - name: Package FreeSWITCH
+      run: |
+        chmod +x package-fs.sh
+        ./package-fs.sh
     
-    - name: Upload artifact
+    - name: Upload FreeSWITCH .deb package as artifact
       uses: actions/upload-artifact@v4
       with:
-        name: freeswitch-package
-        path : install*.sh
+        name: freeswitch-deb-package
+        path: *.deb
 
   
-  # upload:
-  #   runs-on: ubuntu-latest
+  upload_to_s3:
+      runs-on: ubuntu-latest
 
-  #   needs: build  # This ensures the 'build' job is completed before starting this job
+      needs: install_and_package
+      steps:
+      # Download the .deb package artifact
+      - name: Download FreeSWITCH .deb package artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: freeswitch-deb-package
 
-  #   steps:
-  #   # Download zip file that was uploaded from the build stage
-  #   - name: Download artifact
-  #     uses: actions/download-artifact@v4
-  #     with:
-  #       name: test-bash-file
-
-  #   # Upload the zip file to the s3 bucket
-  #   - name: Copy files to the test-prod S3 bucket
-  #     run: |
-  #       aws s3 cp install-fs.sh s3://balian-repo-public/freeswitch/install-fs.sh
+      # Upload the .deb package to S3
+      - name: Upload .deb package to S3
+        run: |
+          DEB_PACKAGE_NAME=$(ls *.deb)
+          aws s3 cp $DEB_PACKAGE_NAME s3://balian-repo-public/freeswitch/$DEB_PACKAGE_NAME
