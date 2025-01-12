@@ -1,0 +1,42 @@
+name: Build and package freeswitch
+
+on:
+  push:
+    branches:
+      - main
+
+env:
+  AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+  AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+  AWS_REGION: us-west-2
+
+jobs:
+  build:
+    runs-on: debian-latest
+
+    steps:
+    - name: Check out code
+      uses: actions/checkout@v2
+
+    - name: Upload artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: test-bash-file
+        path: install-fs.sh
+  
+  upload:
+    runs-on: debian-latest
+
+    needs: build  # This ensures the 'build' job is completed before starting this job
+
+    steps:
+    # Download zip file that was uploaded from the build stage
+    - name: Download artifact
+      uses: actions/download-artifact@v4
+      with:
+        name: test-bash-file
+
+    # Upload the zip file to the s3 bucket
+    - name: Copy files to the test-prod S3 bucket
+      run: |
+        aws s3 cp install-fs.sh s3://balian-repo-public/freeswitch/install-fs.sh
