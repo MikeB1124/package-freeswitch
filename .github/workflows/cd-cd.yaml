@@ -29,10 +29,6 @@ jobs:
       
       - name: Package FreeSWITCH
         run: |
-          docker exec fs-build-env bash -c "ls /usr/local/bin"
-          docker exec fs-build-env bash -c "ls /var/lib/freeswitch"
-          docker exec fs-build-env bash -c "ls /usr/local/share/freeswitch"
-          docker exec fs-build-env bash -c "ls /etc/freeswitch"
           docker exec fs-build-env bash -c "cd /workspace && chmod +x package-fs.sh && ./package-fs.sh"
       
       - name: Extract the .deb package from Docker

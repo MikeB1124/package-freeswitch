@@ -18,7 +18,7 @@ mkdir -p ${PACKAGE_NAME}/var/log/freeswitch
 
 #Copy files
 cp -r /usr/local/* ${PACKAGE_NAME}/usr/local/
-cp -r /var/lib/freeswitch/storage/* ${PACKAGE_NAME}/var/lib/freeswitch/storage/
+# cp -r /var/lib/freeswitch/storage/* ${PACKAGE_NAME}/var/lib/freeswitch/storage/
 cp -r /var/lib/freeswitch/images/* ${PACKAGE_NAME}/var/lib/freeswitch/images/
 cp -r /usr/local/share/freeswitch/* ${PACKAGE_NAME}/usr/local/share/freeswitch/
 cp -r /etc/freeswitch/* ${PACKAGE_NAME}/etc/freeswitch/
