@@ -29,12 +29,11 @@ jobs:
       uses: actions/upload-artifact@v4
       with:
         name: freeswitch-deb-package
-        path: *.deb
+        path: freeswitch_1.0.0_amd64.deb
 
   
   upload_to_s3:
       runs-on: ubuntu-latest
-
       needs: install_and_package
       steps:
       # Download the .deb package artifact
@@ -46,5 +45,4 @@ jobs:
       # Upload the .deb package to S3
       - name: Upload .deb package to S3
         run: |
-          DEB_PACKAGE_NAME=$(ls *.deb)
-          aws s3 cp $DEB_PACKAGE_NAME s3://balian-repo-public/freeswitch/$DEB_PACKAGE_NAME
+          aws s3 cp freeswitch_1.0.0_amd64.deb s3://balian-repo-public/freeswitch/freeswitch_1.0.0_amd64.deb
