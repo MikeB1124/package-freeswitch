@@ -85,7 +85,3 @@ git clone https://github.com/MikeB1124/freeswitch.git /tmp/freeswitch \
     && make && make install \
     && make sounds-install \
     && make moh-install
-
-cp /tmp/freeswitch/freeswitch.service /etc/systemd/system/freeswitch.service
-systemctl enable freeswitch
-systemctl start freeswitch
