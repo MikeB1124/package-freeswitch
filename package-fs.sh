@@ -4,6 +4,7 @@ PACKAGE_NAME="freeswitch"
 VERSION="1.0.0"
 ARCH="amd64"
 MAINTAINER="Michael Balian <balianmichael@gmail.com>"
+DEB_NAME="${PACKAGE_NAME}-${VERSION}_${ARCH}.deb"
 
 #Create package structure
 mkdir -p ${PACKAGE_NAME}/DEBIAN
@@ -72,4 +73,7 @@ chmod -R 755 ${PACKAGE_NAME}/DEBIAN
 #Build the package
 dpkg-deb --build ${PACKAGE_NAME}
 
-echo "Package ${PACKAGE_NAME}_${VERSION}_${ARCH}.deb created successfully!"
+# Rename the deb package to the desired name
+mv ${PACKAGE_NAME}.deb $DEB_NAME
+
+echo "Package $DEB_NAME created successfully!
