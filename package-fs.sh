@@ -73,4 +73,4 @@ chmod -R 755 ${PACKAGE_NAME}/DEBIAN
 #Build the package
 dpkg-deb --build ${PACKAGE_NAME}
 
-echo "Package ${PACKAGE_NAME} created successfully!
+echo "Package ${PACKAGE_NAME} created successfully!"
