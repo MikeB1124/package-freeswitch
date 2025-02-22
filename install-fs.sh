@@ -45,6 +45,7 @@ apt-get update && apt-get install -y \
     libopus-dev \
     libpq-dev \
     libsndfile-dev \
+    librabbitmq-dev \
     vim \
     net-tools \
     tcpdump \
