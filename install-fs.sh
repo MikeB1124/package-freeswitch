@@ -88,6 +88,7 @@ git clone https://github.com/MikeB1124/freeswitch.git /tmp/freeswitch \
     && make moh-install
 
 
+cd /tmp
 #Install Freeswitch Deps and mod_audio_stream
 TOKEN=pat_8s48w5HSCYdH8gBrLmzYsXiX
 
@@ -106,6 +107,6 @@ apt-get build-dep freeswitch -y
 
 apt-get install libfreeswitch-dev libssl-dev libspeexdsp-dev -y
 
-wget https://github.com/amigniter/mod_audio_stream/releases/download/v1.0.0/mod-audio-stream_1.0.0_amd64.deb
-dpkg -i mod-audio-stream_1.0.0_amd64.deb
+wget https://github.com/amigniter/mod_audio_stream/releases/download/v1.0.2/mod-audio-stream_1.0.2_amd64.deb
+dpkg -i mod-audio-stream_1.0.2_amd64.deb
 mv /usr/lib/freeswitch/mod/mod_audio_stream.so /usr/local/lib/freeswitch/mod/
